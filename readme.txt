@@ -1,6 +1,11 @@
 TinyEMU System Emulator by Fabrice Bellard
 ==========================================
 
+NOTE: This repo removes a lot of things, and is not unmodified 2019-12-21
+version.
+
+Some commandline parameters have also been removed.
+
 1) Features
 -----------
 

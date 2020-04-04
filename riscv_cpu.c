@@ -42,11 +42,11 @@
 
 //#define DUMP_INVALID_MEM_ACCESS
 //#define DUMP_MMU_EXCEPTIONS
-//#define DUMP_INTERRUPTS
+// #define DUMP_INTERRUPTS
 //#define DUMP_INVALID_CSR
 //#define DUMP_EXCEPTIONS
 //#define DUMP_CSR
-//#define CONFIG_LOGFILE
+// #define CONFIG_LOGFILE
 
 #include "riscv_cpu_priv.h"
 
@@ -528,11 +528,7 @@ struct __attribute__((packed)) unaligned_u32 {
 /* unaligned access at an address known to be a multiple of 2 */
 static uint32_t get_insn32(uint8_t *ptr)
 {
-#if defined(EMSCRIPTEN)
-    return ((uint16_t *)ptr)[0] | (((uint16_t *)ptr)[1] << 16);
-#else
     return ((struct unaligned_u32 *)ptr)->u32;
-#endif
 }
 
 /* return 0 if OK, != 0 if exception */
@@ -1351,11 +1347,6 @@ RISCVCPUState *riscv_cpu_init(PhysMemoryMap *mem_map, int max_xlen)
     const RISCVCPUClass *c;
     switch(max_xlen) {
         /* with emscripten we compile a single CPU */
-#if defined(EMSCRIPTEN)
-    case MAX_XLEN:
-        c = &glue(riscv_cpu_class, MAX_XLEN);
-        break;
-#else
     case 32:
         c = &riscv_cpu_class32;
         break;
@@ -1367,7 +1358,6 @@ RISCVCPUState *riscv_cpu_init(PhysMemoryMap *mem_map, int max_xlen)
         c = &riscv_cpu_class128;
         break;
 #endif
-#endif /* !EMSCRIPTEN */
     default:
         return NULL;
     }

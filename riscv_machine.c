@@ -739,7 +739,7 @@ static int riscv_build_fdt(RISCVMachine *m, uint8_t *dst,
     fdt_end_node(s); /* / */
 
     size = fdt_output(s, dst);
-#if 0
+#if 1
     {
         FILE *f;
         f = fopen("/tmp/riscvemu.dtb", "wb");
@@ -890,16 +890,6 @@ static VirtMachine *riscv_machine_init(const VirtMachineParams *p)
     if (p->console) {
         vbus->irq = &s->plic_irq[irq_num];
         s->common.console_dev = virtio_console_init(vbus, p->console);
-        vbus->addr += VIRTIO_SIZE;
-        irq_num++;
-        s->virtio_count++;
-    }
-    
-    /* virtio net device */
-    for(i = 0; i < p->eth_count; i++) {
-        vbus->irq = &s->plic_irq[irq_num];
-        virtio_net_init(vbus, p->tab_eth[i].net);
-        s->common.net = p->tab_eth[i].net;
         vbus->addr += VIRTIO_SIZE;
         irq_num++;
         s->virtio_count++;

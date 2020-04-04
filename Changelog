@@ -1,3 +1,9 @@
+2020-04-04: (tavish)
+
+- removed all code related to x86, and code that sues SDL, libcurl
+- removed emscripten specific stuff
+- removed virtio ethernet device
+
 2019-12-21:
 
 - added complete JSLinux demo

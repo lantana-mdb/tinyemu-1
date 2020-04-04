@@ -100,7 +100,6 @@ typedef struct {
     int eth_count;
 
     char *cmdline; /* bios or kernel command line */
-    BOOL accel_enable; /* enable acceleration (KVM) */
     char *input_device; /* NULL means no input */
     
     /* kernel, bios and other auxiliary files */
